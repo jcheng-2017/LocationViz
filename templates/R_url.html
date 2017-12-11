@@ -28,8 +28,9 @@
 <input type="radio" name="options" id="option2" value="option2"> Map </input><br>
 <p><input type=submit value=Next></p>
 </form>
-<form action="main">
-<input type="submit" value="Go to Main">
+<form action="main" align ="center">
+<input type="submit" value="Go Main"> 
+<input id="clickme" type="button" value="Map Fresh" onclick="show_markers();"/>
 </form>
 </table>
 
@@ -51,7 +52,7 @@
 
     function getLocations() {
 
-    $.get("output_cor1", function(data, status){
+    $.get("output_cor3", function(data, status){
 //        alert("Data: " + data + "\nStatus: " + status);
 
             locations_string = data + "";
