@@ -1,0 +1,174 @@
+body {
+    background-color: linen;
+}
+h1 {
+    /*color: #3A0EB2;*/
+    color: #3A5799;
+    font-family: verdana;
+    font-size: 300%;
+    text-align: center;
+    padding: 14px 16px;
+}
+h2 {
+    color: #00B20F;
+    font-family: verdana;
+    font-size: 150%;
+    text-align: left;
+    padding: 5px 5px;
+}
+
+#map {
+    height: 80%;
+    margin: 50;
+    padding: 0;
+}
+
+#all {
+    width:100%;
+    float:center;
+    text-align:center;
+}
+
+iframe {
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+
+    -moz-box-shadow: 4px 4px 14px #000;
+    -webkit-box-shadow: 4px 4px 14px #000;
+    box-shadow: 4px 4px 14px #000;
+
+
+    width: 1000px;
+    border: none;
+    padding: 1em
+}
+
+form {
+  /* center the form on the page */
+  margin: 0 auto;
+  width: 1000px;
+
+  /* outline of the form */
+  padding: 1em;
+  border: 1px solid #3A0EB2;
+  border-radius: 1em;
+}
+
+form div + div {
+  margin-top: 1em;
+}
+
+label {
+  /* size and align labels */
+  display: inline-block;
+  width: 300px;
+  text-align: center;
+  font-family: verdana;
+  color: #3A0EB2;
+}
+
+input {
+  /* font settings for text fields */
+  /*font: 1em sans-serif;*/
+  font-family: verdana;
+  font-size: 100%;
+
+  /* size text fields */
+  width: 100px;
+  box-sizing: border-box;
+
+  /* look & feel of text field border */
+  border: 1px solid #3A0EB2;
+  padding: 4px 6px;
+}
+input[type=text], input[type=file], select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit], input[type=reset], input[type=button]{
+    padding:15px 20px;
+    background-color: #7ACC81;
+    color: white;
+    margin: 8px 0;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover{
+    background-color: #00B20F;
+}
+
+input[type=reset]:hover{
+    background-color: #00B20F;
+}
+
+input[type=button]:hover{
+    background-color: #00B20F;
+}
+
+input:focus {
+  /* highlight on active elements */
+  border-color: #A382FF;
+}
+
+div.relative {
+    position: relative;
+    top: 50px;
+}
+
+.button {
+  /* position the buttons */
+  padding-left: 90px; /* same size as the label elements */
+}
+
+button {
+  /* extra margin */
+  margin-left: .5em;
+}
+
+
+.entities {
+     line-height: 2;
+}
+
+[data-entity] {
+     padding: 0.25em 0.35em;
+     margin: 0px 0.25em;
+     line-height: 1;
+     display: inline-block;
+     border-radius: 0.25em;
+     border: 1px solid;
+}
+
+[data-entity]::after {
+     box-sizing: border-box;
+     content: attr(data-entity);
+     font-size: 0.6em;
+     line-height: 1;
+     padding: 0.35em;
+     border-radius: 0.35em;
+     text-transform: uppercase;
+     display: inline-block;
+     vertical-align: middle;
+     margin: 0px 0px 0.1rem 0.5rem;
+}
+
+[data-entity][data-entity="loc"] {
+     background: rgba(250, 86, 70, 0.2);
+     border-color: rgb(250, 86, 70);
+}
+
+[data-entity][data-entity="loc"]::after {
+     background: rgb(250, 86, 70);
+}
