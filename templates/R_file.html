@@ -1,173 +1,106 @@
-﻿<html>
+<!DOCTYPE html>
+<html>
 <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <title>OpenStreetMap with Google Maps v3 API</title>
-        <style type="text/css">
-            html, body, #map {
-                height: 80%;
-                margin: 50;
-                padding: 0;
-            }
-        </style>
- </head>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="http://127.0.0.1:5000/static/style.css">
+    <title>TxtLocViz</title>
+</head>
 
 <body>
-<table align ="center">
-<h1 align ="center" Text retrieval project_Team 19 </h1>
-<p>Input a text sentence:</p>
+    <h1 align ="center">Text Location Visualization</h1>
+    <form method="POST">
+        <h2>Select a text file from the dataset folder:</h2>
+        <input name="myFile" type="file">
+        <input type="submit" value="OK">
+    </form>
 
+    <div id="map"></div>
 
-<form name="my_form_post1" action="" method="post" onsubmit="" align ="center">
-<input name="myFile" type="file">
-<input type="radio" name="options" id="option1" value="option1" checked> Ok </input>
-<input type="radio" name="options" id="option2" value="option2"> Map </input>
-<p><input type=submit value=Next></p>
-</form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <!--
+    ***********************************************************************************************
+    Enter your API key in the next line after key= and before &callback= replace API_KEY_GOES_HERE
+    ***********************************************************************************************
+     -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap">
+    </script>
 
+    <script type ="text/javascript">
 
-
-<form action="main" align ="center">
-<input type="submit" value="Go Main"> 
-<input id="clickme" type="button" value="Map Fresh" onclick="show_markers();"/>
-</form>
-</table>
-
-
-<div id="map"></div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcuHKFDlsMqLpIyEqjsnwsj4XSxJSxjHY&callback=initMap"></script>
-<script type ="text/javascript">
-    //function refresh_map(){
-    $(document).ready(function(){
-        // If you want an empty map call initialize function and comment the below line
-        // initialize();
-        show_markers();
-    });
-    var locations = [];
-    var marker, i;
-    var map;
-
-    function getLocations() {
-
-    $.get("output_cor2", function(data, status){
-//        alert("Data: " + data + "\nStatus: " + status);
-
-            locations_string = data + "";
-            var lines = data.split("\n");
-		//alert("lines:"+lines.length);
-            for (i = 0; i < lines.length; i++) {
-                if (lines[i] != '') {
-                    locations_array = lines[i].replace("\\r\\n", "").split(",");
-                    //locName = locations_array[0];
-                    locName="";
-                    lat     = parseFloat(locations_array[0].trim());
-                    longt   = parseFloat(locations_array[1].trim());
-                    srno    = parseInt( i + 1);
-                    var arr = [ locName, lat, longt, srno];
-                    locations[i] = arr;
-                }
-            }
-
-
-    });
-
-/*
-        jQuery.get('output_cor1', function(data) {
-//            alert("testtest");
-//             alert(data);
-            locations_string = data + "";
-
-            var lines = data.split("\n");
-            for (i = 0; i < lines.length; i++) {
-                if (lines[i] != '') {
-                    locations_array = lines[i].replace("\\r\\n", "").split(",");
-                    locName = locations_array[0];
-                    lat     = parseFloat(locations_array[1].trim());
-                    longt   = parseFloat(locations_array[2].trim());
-                    srno    = parseInt( i + 1);
-                    var arr = [ locName, lat, longt, srno];
-                    locations[i] = arr;
-                }
-            }
+        $(document).ready(function(){
+            show_markers();
         });
-*/
-    }
+        var locations = [];
+        var marker, i;
+        var map;
 
-/*
-
-function getLocations() {
-        jQuery.get('../locations.txt', function(data) {
-            locations_string = data + "";
-
-            var lines = data.split("\n");
-            for (i = 0; i < lines.length; i++) {
-                if (lines[i] != '') {
-                    locations_array = lines[i].replace("\\r\\n", "").split(",");
-                    lat     = parseFloat(locations_array[0].trim());
-                    longt   = parseFloat(locations_array[1].trim());
-                    srno    = parseInt( i + 1);
-                    var arr = [lat, longt, srno];
-                    locations[i] = arr;
-                }
-            }
-        });
-    }
-
-
-*/
-
-    function initialize() {
-        getLocations();
-        setTimeout(function(){
-            var latlng = new google.maps.LatLng(locations[0][1], locations[0][2]);
-            var myOptions = {
-                zoom: 3,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            map = new google.maps.Map(document.getElementById("map"), myOptions);
-            var infowindow = new google.maps.InfoWindow();
-            locations = [];
-        }, 500);
-    }
-
-    function show_markers() {
-        getLocations();
-        setTimeout(function(){
-            var latlng = new google.maps.LatLng(locations[0][1], locations[0][2]);
-            var myOptions = {
-                zoom: 3,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            map = new google.maps.Map(document.getElementById("map"), myOptions);
-            var infowindow = new google.maps.InfoWindow();
-            var marker, i;
-            for (i = 0; i < locations.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map
-                });
-
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        infowindow.setContent(locations[i][0]);
-                        infowindow.open(map, marker);
+        function getLocations() {
+            $.get("output_cor1", function(data, status){
+                locations_string = data + "";
+                var lines = data.split("\n");
+                for (i = 0; i < lines.length; i++) {
+                    if (lines[i] != '') {
+                        locations_array = lines[i].replace("\\r\\n", "").split(",");
+                        locName="";
+                        lat     = parseFloat(locations_array[0].trim());
+                        longt   = parseFloat(locations_array[1].trim());
+                        srno    = parseInt( i + 1);
+                        var arr = [ locName, lat, longt, srno];
+                        locations[i] = arr;
                     }
-                })(marker, i));
-            }
-            locations = [];
-        }, 500);
-    }
+                }
+            });
+        }
 
-</script>
+        function initialize() {
+            getLocations();
+            setTimeout(function(){
+                var latlng = new google.maps.LatLng(locations[0][1], locations[0][2]);
+                var myOptions = {
+                    zoom: 3,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById("map"), myOptions);
+                var infowindow = new google.maps.InfoWindow();
+                locations = [];
+            }, 500);
+        }
+
+        function show_markers() {
+            getLocations();
+            setTimeout(function(){
+                var latlng = new google.maps.LatLng(locations[0][1], locations[0][2]);
+                var myOptions = {
+                    zoom: 3,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(document.getElementById("map"), myOptions);
+                var infowindow = new google.maps.InfoWindow();
+                var marker, i;
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow.setContent(locations[i][0]);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
+                locations = [];
+            }, 500);
+        }
+
+    </script>
 
 </body>
 </html>
-
-

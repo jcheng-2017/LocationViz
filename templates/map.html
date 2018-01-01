@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿
 <html>
 <head>
     <meta charset="utf-8" />
@@ -10,24 +10,21 @@
 
 <body>
     <h1 align ="center">Text Location Visualization</h1>
+    <div id="all">
+        <iframe src="locations"></iframe>
+    </div>
+    <br>
     <form method="POST">
-        <h2 align ="center">Enter text:</h2>
-        <input type = "text" name="myText" placeholder="Enter text...">
-        <input type="submit" value="OK">
-        <input type="reset" value="Reset">
-        <!-- <input type="button" value="Refresh" onclick="show_markers();"/> -->
+        <h2 align ="center">Refresh the map to see results:</h2>
+        <input type="button" value="Refresh" align ="right" onclick="show_markers();"/>
     </form>
 
     <div id="map"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
-    <!--
-    ***********************************************************************************************
-    Enter your API key in the next line after key= and before &callback= replace API_KEY_GOES_HERE
-    ***********************************************************************************************
-     -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap">
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcuHKFDlsMqLpIyEqjsnwsj4XSxJSxjHY&callback=initMap">
     </script>
 
     <script type ="text/javascript">
